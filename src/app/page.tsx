@@ -113,7 +113,8 @@ export default function Home() {
       }
 
       // Update basic context
-      setConversationSummary((conversationSummary + " " + userText).slice(-200));
+      const newContext = `${conversationSummary} ${userText} ${data.recognizedContent || ''}`.slice(-200);
+      setConversationSummary(newContext);
       setStatus('Ready');
     } catch (err) {
       console.error(err);
@@ -144,7 +145,11 @@ export default function Home() {
         <TutorCanvas ref={canvasRef} />
       </div>
 
-      <Toolbar />
+      <Toolbar 
+        onUndo={() => canvasRef.current?.undo?.()}
+        onRedo={() => canvasRef.current?.redo?.()}
+        onRewind={() => canvasRef.current?.rewind?.()}
+      />
       <StatusPill />
       <VoiceOrb onTextSubmit={handleVoiceSubmit} />
 

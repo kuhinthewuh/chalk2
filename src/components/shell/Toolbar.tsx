@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTutorStore } from '../../lib/store/useTutorStore';
 import { TutorMode } from '../../lib/contracts/tutor';
-import { Undo, Redo, RotateCcw } from 'lucide-react';
+import { Undo, Redo, RotateCcw, Volume2, VolumeX } from 'lucide-react';
+import { speechSynthesizer } from '../../lib/voice/speechSynthesis';
 
 const MODES: { value: TutorMode; label: string }[] = [
   { value: 'hint', label: 'Teach Me' },
@@ -10,8 +11,21 @@ const MODES: { value: TutorMode; label: string }[] = [
   { value: 'physics', label: 'Visualize' },
 ];
 
-export const Toolbar: React.FC = () => {
+interface ToolbarProps {
+  onUndo?: () => void;
+  onRedo?: () => void;
+  onRewind?: () => void;
+}
+
+export const Toolbar: React.FC<ToolbarProps> = ({ onUndo, onRedo, onRewind }) => {
   const { mode, setMode } = useTutorStore();
+  const [isMuted, setIsMuted] = useState(speechSynthesizer.getMuted());
+
+  const toggleMute = () => {
+    const newState = !isMuted;
+    speechSynthesizer.setMuted(newState);
+    setIsMuted(newState);
+  };
 
   return (
     <div className="absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-white/80 backdrop-blur-md px-6 py-3 rounded-full shadow-lg border border-neutral-200">
@@ -34,16 +48,22 @@ export const Toolbar: React.FC = () => {
       <div className="w-px h-6 bg-neutral-200 mx-1" />
 
       <div className="flex gap-1">
-        <button className="p-2 rounded-full hover:bg-neutral-100 text-neutral-600 transition-colors" title="Undo">
+        <button onClick={onUndo} className="p-2 rounded-full hover:bg-neutral-100 text-neutral-600 transition-colors" title="Undo">
           <Undo size={18} />
         </button>
-        <button className="p-2 rounded-full hover:bg-neutral-100 text-neutral-600 transition-colors" title="Redo">
+        <button onClick={onRedo} className="p-2 rounded-full hover:bg-neutral-100 text-neutral-600 transition-colors" title="Redo">
           <Redo size={18} />
         </button>
-        <button className="p-2 rounded-full hover:bg-neutral-100 text-neutral-600 transition-colors" title="Rewind">
+        <button onClick={onRewind} className="p-2 rounded-full hover:bg-neutral-100 text-neutral-600 transition-colors" title="Rewind">
           <RotateCcw size={18} />
         </button>
       </div>
+
+      <div className="w-px h-6 bg-neutral-200 mx-1" />
+
+      <button onClick={toggleMute} className="p-2 rounded-full hover:bg-neutral-100 text-neutral-600 transition-colors" title={isMuted ? "Unmute" : "Mute"}>
+        {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+      </button>
     </div>
   );
 };
