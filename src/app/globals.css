@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter);
+  --font-handwriting: var(--font-caveat);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fcfcfc;
+  color: #1a1a1a;
+  overflow: hidden;
+}
+
+/* Base tailwind directives have been imported via tailwindcss v4 standard @import */
