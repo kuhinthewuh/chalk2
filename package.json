@@ -1,0 +1,38 @@
+{
+  "name": "chalk2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@google/genai": "^0.14.0",
+    "@react-three/drei": "^9.114.0",
+    "@react-three/fiber": "^8.17.10",
+    "katex": "^0.16.11",
+    "next": "^15.0.3",
+    "perfect-freehand": "^1.2.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "roughjs": "^4.6.6",
+    "three": "^0.169.0",
+    "tldraw": "^3.4.0",
+    "zod": "^3.23.8",
+    "zustand": "^5.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/katex": "^0.16.7",
+    "@types/node": "^22.9.0",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
+    "@types/three": "^0.169.0",
+    "eslint": "^9.15.0",
+    "eslint-config-next": "^15.0.3",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.6.3"
+  }
+}
